@@ -16,5 +16,12 @@ export const copy = () => {
     .pipe(dest('dist'));
 }
 
+// Compile sass to css
+export const compileStyles = () => {
+    // Take a bundle
+    // compile form sass to css
+    // and pipe to dist
+}
+
 // Set a default export that can be run with 'gulp'
 export default copy;
