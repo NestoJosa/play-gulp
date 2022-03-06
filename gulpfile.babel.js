@@ -1,11 +1,13 @@
 import { src, dest } from 'gulp';
 import del from 'del';
+import sourcemaps from 'gulp-sourcemaps';
 import dartSass from 'sass';
 import gulpSass from 'gulp-sass';
 // Set dertSass as the default compiler for gulpSass
 const sass = gulpSass( dartSass );
 import autoprefixer from 'autoprefixer';
 import postcss from 'gulp-postcss';
+import cleanCss from 'gulp-clean-css';
 
 // Delete '/dist'
 export const clean = () => del([ 'dist' ]);
@@ -26,10 +28,14 @@ export const copy = () => {
 export const compileStyles = () => {
     // Take a bundle
     return src('src/scss/bundle.scss')
-    // compile form sass to css and log any errors
-    .pipe(sass.sync().on('error', sass.logError))
-    // add vendor profixes
-    .pipe(postcss([ autoprefixer ]))
+    .pipe(sourcemaps.init())
+        // compile form sass to css and log any errors
+        .pipe(sass.sync().on('error', sass.logError))
+        // add vendor profixes
+        .pipe(postcss([ autoprefixer ]))
+        // minify the file
+        .pipe(cleanCss({compatibility:'ie8'}))
+    .pipe(sourcemaps.write())
     // and pipe to dist
     .pipe(dest('dist/css'));
 }
