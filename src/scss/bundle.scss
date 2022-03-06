@@ -1,5 +1,8 @@
 // bundle.scss
 
+// Import bootstrap 5 - modified
+@import 'custom-bs5.scss';
+
 // Abstracts - order matters
 @import 'abstracts/variables';
 @import 'abstracts/mixins';

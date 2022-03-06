@@ -18,7 +18,9 @@ export const copy = () => {
         // Copy everything from src,
         'src/**/*',
         // except for certain dirs,
-        '!src/{js,scss}', 
+        '!src/{js,scss}',
+        // and their content
+        '!src/{js,scss}/**/*',
     ])
     // into a specified directory
     .pipe(dest('dist'));
@@ -34,7 +36,7 @@ export const compileStyles = () => {
         // add vendor profixes
         .pipe(postcss([ autoprefixer ]))
         // minify the file
-        .pipe(cleanCss({compatibility:'ie8'}))
+        // .pipe(cleanCss({compatibility:'ie8'}))
     .pipe(sourcemaps.write())
     // and pipe to dist
     .pipe(dest('dist/css'));

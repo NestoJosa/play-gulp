@@ -1,0 +1,38 @@
+// custom-bs5.scss
+
+// Required
+@import "./bootstrap-5.1.3/scss/functions";
+
+// Default variable overrides
+
+$grid-gutter-width: 2rem;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1600px
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1152px,
+  xxl: 1440px 
+);
+
+
+// Required
+@import "./bootstrap-5.1.3/scss/variables";
+@import "./bootstrap-5.1.3/scss/mixins";
+@import "./bootstrap-5.1.3/scss/root";
+
+// Optional Bootstrap components here
+@import "./bootstrap-5.1.3/scss/reboot";
+@import "./bootstrap-5.1.3/scss/type";
+@import "./bootstrap-5.1.3/scss/containers";
+@import "./bootstrap-5.1.3/scss/utilities";
+@import "./bootstrap-5.1.3/scss/grid";
