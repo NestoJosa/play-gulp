@@ -16,4 +16,5 @@ export const copy = () => {
     .pipe(dest('dist'));
 }
 
+// Set a default export that can be run with 'gulp'
 export default copy;
