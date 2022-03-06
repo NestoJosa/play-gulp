@@ -24,8 +24,8 @@ export const copy = () => {
 export const compileStyles = () => {
     // Take a bundle
     return src('src/scss/bundle.scss')
-    // compile form sass to css
-    .pipe(sass())
+    // compile form sass to css and log any errors
+    .pipe(sass.sync().on('error', sass.logError))
     // and pipe to dist
     .pipe(dest('dist/css'));
 }
