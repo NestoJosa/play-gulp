@@ -12,7 +12,7 @@ import cleanCss from 'gulp-clean-css';
 // Delete '/dist'
 export const clean = () => del([ 'dist' ]);
 
-// Copy source files into '/dist'
+// Copy files into '/dist'
 export const copy = () => {
     return src([
         // Copy everything from src,
