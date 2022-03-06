@@ -1,5 +1,9 @@
 import { src, dest } from 'gulp';
 import del from 'del';
+import dartSass from 'sass';
+import gulpSass from 'gulp-sass';
+// Set dertSass as the default compiler for gulpSass
+const sass = gulpSass( dartSass );
  
 // Delete '/dist'
 export const clean = () => del([ 'dist' ]);
@@ -19,9 +23,12 @@ export const copy = () => {
 // Compile sass to css
 export const compileStyles = () => {
     // Take a bundle
+    return src('src/scss/bundle.scss')
     // compile form sass to css
+    .pipe(sass())
     // and pipe to dist
+    .pipe(dest('dist/css'));
 }
 
 // Set a default export that can be run with 'gulp'
-export default copy;
+export default compileStyles;
