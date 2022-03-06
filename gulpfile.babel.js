@@ -4,7 +4,9 @@ import dartSass from 'sass';
 import gulpSass from 'gulp-sass';
 // Set dertSass as the default compiler for gulpSass
 const sass = gulpSass( dartSass );
- 
+import autoprefixer from 'autoprefixer';
+import postcss from 'gulp-postcss';
+
 // Delete '/dist'
 export const clean = () => del([ 'dist' ]);
 
@@ -26,6 +28,8 @@ export const compileStyles = () => {
     return src('src/scss/bundle.scss')
     // compile form sass to css and log any errors
     .pipe(sass.sync().on('error', sass.logError))
+    // add vendor profixes
+    .pipe(postcss([ autoprefixer ]))
     // and pipe to dist
     .pipe(dest('dist/css'));
 }
