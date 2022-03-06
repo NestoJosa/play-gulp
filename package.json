@@ -1,0 +1,21 @@
+{
+  "name": "play-gulp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/register": "^7.17.0",
+    "gulp": "^4.0.2"
+  },
+  "dependencies": {
+    "babel": "^6.23.0",
+    "del": "^6.0.0"
+  }
+}
