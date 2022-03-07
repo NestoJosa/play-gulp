@@ -1,4 +1,4 @@
-import { src, dest } from 'gulp';
+import { src, dest, series } from 'gulp';
 import del from 'del';
 import sourcemaps from 'gulp-sourcemaps';
 import dartSass from 'sass';
@@ -42,5 +42,7 @@ export const compileStyles = () => {
     .pipe(dest('dist/css'));
 }
 
+export const dev = series(clean, copy, compileStyles);
+
 // Set a default export that can be run with 'gulp'
-export default compileStyles;
+export default dev;
