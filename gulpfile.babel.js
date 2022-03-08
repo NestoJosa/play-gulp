@@ -8,6 +8,10 @@ const sass = gulpSass( dartSass );
 import autoprefixer from 'autoprefixer';
 import postcss from 'gulp-postcss';
 import cleanCss from 'gulp-clean-css';
+import webpack from 'webpack-stream';
+
+// const PRODUCTION = yargs.argv.prod;
+const PRODUCTION = true;
 
 // Delete '/dist'
 export const clean = () => del([ 'dist' ]);
@@ -40,6 +44,27 @@ export const compileStyles = () => {
     .pipe(sourcemaps.write())
     // and pipe to dist
     .pipe(dest('dist/css'));
+}
+
+export const compileScripts = () => {
+	return src('src/js/bundle.js')
+	.pipe(webpack({
+		module: {
+            rules: [{
+				test: /\.js$/,
+				use: {
+					loader: 'babel-loader',
+					options: {presets: []}
+                }
+            }]
+        },
+        mode: PRODUCTION ? 'production' : 'development',
+        devtool: !PRODUCTION ? 'inline-source-map' : false,
+        output: {
+            filename: 'bundle.js'
+		},
+	}))
+	.pipe(dest('dist/js'));
 }
 
 export const dev = series(clean, copy, compileStyles);
