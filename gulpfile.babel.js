@@ -41,7 +41,7 @@ export const compileStyles = () => {
         // add vendor profixes
         .pipe(postcss([ autoprefixer ]))
         // minify the file
-        // .pipe(cleanCss({compatibility:'ie8'}))
+        .pipe(cleanCss({compatibility:'ie8'}))
     .pipe(sourcemaps.write())
     // and pipe to dist
     .pipe(dest('dist/css'));
