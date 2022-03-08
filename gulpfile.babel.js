@@ -1,4 +1,4 @@
-import { src, dest, series } from 'gulp';
+import { src, dest, watch, series, parallel } from 'gulp';
 import del from 'del';
 import sourcemaps from 'gulp-sourcemaps';
 import dartSass from 'sass';
@@ -9,6 +9,7 @@ import autoprefixer from 'autoprefixer';
 import postcss from 'gulp-postcss';
 import cleanCss from 'gulp-clean-css';
 import webpack from 'webpack-stream';
+import browserSync from "browser-sync";
 
 // const PRODUCTION = yargs.argv.prod;
 const PRODUCTION = true;
@@ -67,7 +68,30 @@ export const compileScripts = () => {
 	.pipe(dest('dist/js'));
 }
 
-export const dev = series(clean, copy, compileStyles);
+// Refreshing the browser with Browsersync
+const server = browserSync.create();
 
-// Set a default export that can be run with 'gulp'
+export const serve = done => {
+	server.init({
+		// put your local website link here:
+		proxy: "http://localhost:8888/play-gulp/dist/index.html" 
+	});
+	done();
+};
+
+export const reload = done => {
+	server.reload();
+	done();
+};
+
+export const watchForChanges = () => {
+	watch('src/scss/**/*.scss', series(compileStyles, reload));
+	watch('src/js/**/*.js', series(compileScripts, reload));
+	watch(['src/**/*','!src/{scss,js,}','!src/{scss,js}/**/*'], series(copy, reload));
+	watch('**/*.php', reload); 
+	watch('**/*.html', reload); 
+}
+
+export const dev = series(clean, parallel(compileStyles, compileScripts, copy), serve, watchForChanges);
+export const build = series(clean, parallel(compileStyles, compileScripts, copy));
 export default dev;
